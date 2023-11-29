@@ -1,0 +1,17 @@
+Proyecto formulario de votaciones:
+
+1. Para poder ejecutar este sistema hecho en PHP, primero que todo se debe instalar de forma local XAMPP para Windows.
+Se decidio por XAMPP porque contiene el servidor Apache para PHP y la Base de Datos MariaDB.
+ Enlace: https://www.apachefriends.org/es/download.html
+2. Descargar e instalar algún IDE para poder visualizar el código fuente, para este caso se utilizó Visual Studio Code.
+3. Descargar e instalar Git para Windows Enlace: https://gitforwindows.org/ .
+4. Para poder clonar el repositorio, primero se debe crear una nueva carpeta e ingresar en ella desde la consola de Git Bash.
+5. Después se debe ingresar el comando git clone https://github.com/JoseIgnacio2020/form-votacion.git para poder descargar el repositorio de forma local.
+6. Una vez hecho todo esto, se debe ingresar al panel de control de XAMPP y ejecutar los procesos de Apache y MySQL.
+7. Se debe ingresar al Admin de MySQL (http://localhost/phpmyadmin/). Después se debe crear la Base de Datos con el nombre "prueba_desis".
+8. Ingresar a la pestaña que dice SQL e ingresar todos los scripts que están en el archivo scripts.sql, con esto se generan todas las tablas.
+9. Después se debe ejecutar el SQL que está en el archivo InsertTablas.sql. Con esto se ingresan datos a todas las tablas.
+10. En el archivo Querys.sql, se encuentran dos ejemplos de querys que se pueden usar para poder obtener registros desde la Base de Datos.
+
+Versión de PHP: 8.2.4.
+Servidor de base de datos: 10.4.28-MariaDB

@@ -55,9 +55,3 @@ INSERT INTO regiones (nombre) VALUES
     ("Eduardo Artés"),
     ("Marco Enríquez-Ominami"),
     ("Franco Parisi");
-
-    INSERT INTO contactos (nombre) VALUES 
-	("web"), 
-    ("tv"),
-    ("redes_sociales"),
-    ("amigo");
