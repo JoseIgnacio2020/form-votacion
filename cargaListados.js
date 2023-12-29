@@ -32,13 +32,10 @@ $(document).ready(function() {
             data: {idRegion:idRegion},
             dataType: 'json',
             success: function (data) {
-                console.log("data:" + JSON.stringify(data));
-                // Limpiar el ComboBox
                 $('#comuna').empty();
                 $('#comuna').append(`<option value="0"> 
                 Seleccione comuna 
                 </option>`); 
-                // Agregar las opciones obtenidas
                 for (var i = 0; i < data.length; i++) {
                     let value = i + 1;
                     let text = data[i].nombre;
@@ -54,19 +51,16 @@ $(document).ready(function() {
     });
 
     $(document).ready(function() {
-        // Hacer una petición AJAX para obtener las opciones desde PHP
         $.ajax({
-            url: 'obtenerCandidatos.php',  // Archivo PHP que devuelve las opciones
+            url: 'obtenerCandidatos.php', 
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                // Limpiar el ComboBox
                 $('#candidato').empty();
                 $('#candidato').append(`<option value="0"> 
                     Seleccione candidato 
                     </option>`); 
-    
-                // Agregar las opciones obtenidas
+
                 for (var i = 0; i < data.length; i++) {
                     let    value = i + 1;
                     let    text =data[i].nombre;
@@ -81,4 +75,3 @@ $(document).ready(function() {
         });
     });
 });
-
