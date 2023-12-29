@@ -7,7 +7,7 @@ $(document).ready(function() {
         success: function(data) {
             // Limpiar el ComboBox
             $('#region').empty();
-            $('#region').append(`<option value="0"> 
+            $('#region').append(`<option value=""> 
                 Seleccione región 
                 </option>`); 
             // Agregar las opciones obtenidas
@@ -57,7 +57,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 $('#candidato').empty();
-                $('#candidato').append(`<option value="0"> 
+                $('#candidato').append(`<option value=""> 
                     Seleccione candidato 
                     </option>`); 
 

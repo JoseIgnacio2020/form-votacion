@@ -10,6 +10,7 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="cargaListados.js"></script>
+    <script src="validaciones.js"></script>
 </head>
 
 <body>
@@ -21,39 +22,44 @@
         <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre." size="30" maxlength="50" required>
         <br>
 
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido." size="30" maxlength="50" required>
+        <label for="apellido">Apellido (requerido)</label>
+        <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido." size="30" maxlength="50"
+            required>
         <br>
 
-        <label for="alias">Alias:</label>
+        <label for="alias">Alias (requerido)</label>
         <input type="text" id="alias" name="alias" placeholder="Ingrese un alias." size="30" maxlength="50" required>
         <br>
 
-        <label for="rut">RUT:</label>
+        <label for="rut">RUT (requerido)</label>
         <input type="text" id="rut" name="rut" placeholder="Ejemplo: 11111111-1" size="30" maxlength="50" required>
         <br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Ingrese correo electrónico." size="30" maxlength="50" required>
+        <label for="email">Email (requerido)</label>
+        <input type="email" id="email" name="email" placeholder="Ingrese correo electrónico." size="30" maxlength="50"
+            required>
         <br>
 
-        <label for="region">Región:</label>
+        <label for="region">Región (requerido)</label>
         <select id="region" name="region" required>
+            <option value="">Seleccione región</option>
         </select>
         <br>
 
-        <label for="comuna">Comuna:</label>
+        <label for="comuna">Comuna (requerido)</label>
         <select id="comuna" name="comuna" required>
+            <option value="">Seleccione comuna</option>
         </select>
         <br>
 
-        <label for="candidato">Candidato:</label>
+        <label for="candidato">Candidato (requerido)</label>
         <select id="candidato" name="candidato" required>
+            <option value="">Seleccione candidato</option>
         </select>
         <br>
 
-        <div class="checkbox-group">
-            <p><strong>¿Cómo se enteró de nosotros?</strong></p>
+        <div>
+            <p><strong>¿Cómo se enteró de nosotros? (requerido)</strong></p>
             <div>
                 <input type="checkbox" id="web" name="como_se_entero[]" value="web">
                 <label for="web">Web</label>
@@ -65,8 +71,7 @@
             </div>
 
             <div>
-                <input type="checkbox" id="redes_sociales" name="como_se_entero[]" value="redes_sociales"
-                   >
+                <input type="checkbox" id="redes_sociales" name="como_se_entero[]" value="redes_sociales">
                 <label for="redes_sociales">Redes Sociales</label>
             </div>
 
@@ -76,8 +81,73 @@
             </div>
         </div>
         <br>
+
         <input type="submit" value="Votar" id="btnVotar">
     </form>
+
+    <script>
+
+        $().ready(function () {
+
+            jQuery.validator.addMethod("alphanumeric", function (value, element) {
+                return this.optional(element) || /^[\w]+$/i.test(value);
+            }, "<div class='text-error'>Alias solamente con letras y números.</div>");
+
+            $.validator.addMethod("validaRut", function (value, element) {
+                return this.optional(element) || validaRut(value);
+            }, "Ingrese un RUT válido");
+
+            // Realiza la validación al presionar el botón de submit.
+            $("#formularioVoto").validate({
+                rules: {
+                    nombre: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    apellido: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    alias: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 50,
+                        alphanumeric: true
+                    },
+                    rut: {
+                        required: true,
+                        maxlength: 50,
+                        validaRut: true
+                    },
+                    email: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    region: "required",
+                    comuna: "required",
+                    comuna: "required",
+                    candidato: "required"
+                },
+                messages: {
+                    nombre: "<div class='text-error'>Por favor ingrese su nombre.</div>",
+                    apellido: "<div class='text-error'>Por favor ingrese su apellido.</div>",
+                    alias: {
+                        required: "<div class='text-error'>Por favor ingrese alias.</div>",
+                        minlength: "<div class='text-error'>El alias debe tener más de 5 caracteres.</div>"
+                    },
+                    rut: {
+                        required: "<div class='text-error'>Por favor ingrese el RUT.</div>",
+                        validaRut: "<div class='text-error'>Debe ingresar un RUT válido.</div>"
+                    },
+                    email: "<div class='text-error'>Por favor ingrese el correo electrónico.</div>",
+                    region: "<div class='text-error'>Por favor seleccione una región.</div>",
+                    comuna: "<div class='text-error'>Por favor seleccione una comuna.</div>",
+                    candidato: "<div class='text-error'>Por favor seleccione un candidato.</div>"
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>
