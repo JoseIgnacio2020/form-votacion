@@ -1,4 +1,5 @@
 function validaRut(rut) {
+    console.log("validaEmail");
     rut = rut.replace(".", "").replace("-", "");
     var cuerpo = rut.slice(0, -1);
     var dv = rut.slice(-1).toUpperCase();
@@ -20,3 +21,13 @@ function validaRut(rut) {
 
     return resultado === dv;
 }
+
+function validaEmail(email) {
+// Expresión regular para validar el formato del correo electrónico
+var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Verifica si el correo electrónico cumple con el formato esperado
+return emailRegex.test(email);
+}
+
+

@@ -32,7 +32,7 @@
         <br>
 
         <label for="rut">RUT (requerido)</label>
-        <input type="text" id="rut" name="rut" placeholder="Ejemplo: 11111111-1" size="30" maxlength="50" required>
+        <input type="text" id="rut" name="rut" placeholder="Ejemplo: 11111111-1" required>
         <br>
 
         <label for="email">Email (requerido)</label>
@@ -95,7 +95,15 @@
 
             $.validator.addMethod("validaRut", function (value, element) {
                 return this.optional(element) || validaRut(value);
-            }, "Ingrese un RUT válido");
+            }, "Por favor ingrese un RUT válido.");
+
+            $.validator.addMethod("validaEmail", function (value, element) {
+                return this.optional(element) || validaEmail(value);
+            }, "Por favor ingrese un correo electrónico válido.");
+
+            $.validator.addMethod("ValidaCheckboxes ", function(value, element) {
+                return $('input[type="checkbox"]:checked').length >= 2;
+            }, "Por favor seleccione al menos dos opciones.");
 
             // Realiza la validación al presionar el botón de submit.
             $("#formularioVoto").validate({
@@ -121,28 +129,50 @@
                     },
                     email: {
                         required: true,
-                        maxlength: 50
+                        maxlength: 50,
+                        validaEmail: true
                     },
                     region: "required",
                     comuna: "required",
                     comuna: "required",
-                    candidato: "required"
+                    candidato: "required",
+                    web: "ValidaCheckboxes",
+                    tv: "ValidaCheckboxes",
+                    redes_sociales: "ValidaCheckboxes",
+                    amigo: "ValidaCheckboxes",
+                    como_se_entero: "required"
                 },
                 messages: {
-                    nombre: "<div class='text-error'>Por favor ingrese su nombre.</div>",
-                    apellido: "<div class='text-error'>Por favor ingrese su apellido.</div>",
+                    nombre: {
+                        required: "<div class='text-error'>Por favor ingrese su nombre.</div>",
+                        maxlength: "<div class='text-error'>El máximo de caracteres es de 50.</div>"
+                    },
+                    nombre: {
+                        required: "<div class='text-error'>Por favor ingrese su apellido.</div>",
+                        maxlength: "<div class='text-error'>El máximo de caracteres es de 50.</div>"
+                    },
                     alias: {
                         required: "<div class='text-error'>Por favor ingrese alias.</div>",
                         minlength: "<div class='text-error'>El alias debe tener más de 5 caracteres.</div>"
                     },
                     rut: {
                         required: "<div class='text-error'>Por favor ingrese el RUT.</div>",
-                        validaRut: "<div class='text-error'>Debe ingresar un RUT válido.</div>"
+                        validaRut: "<div class='text-error'>Debe ingresar un RUT válido.</div>",
+                        maxlength: "<div class='text-error'>El máximo de caracteres es de 12.</div>"
                     },
-                    email: "<div class='text-error'>Por favor ingrese el correo electrónico.</div>",
+                    email: {
+                        required: "<div class='text-error'>Por favor ingrese el correo electrónico.</div>",
+                        validaEmail: "<div class='text-error'>Debe ingresar un correo electrónico válido.</div>",
+                        maxlength: "<div class='text-error'>El máximo de caracteres es de 50.</div>"
+                    },
                     region: "<div class='text-error'>Por favor seleccione una región.</div>",
                     comuna: "<div class='text-error'>Por favor seleccione una comuna.</div>",
-                    candidato: "<div class='text-error'>Por favor seleccione un candidato.</div>"
+                    candidato: "<div class='text-error'>Por favor seleccione un candidato.</div>",
+                    web: "Selecciona al menos dos opciones.",
+                    tv: "Selecciona al menos dos opciones.",
+                    redes_sociales: "Selecciona al menos dos opciones.",
+                    amigo: "Selecciona al menos dos opciones.",
+                    como_se_entero: "<div class='text-error'>Por favor seleccione cómo nos conocio.</div>"
                 }
             });
 
