@@ -17,7 +17,8 @@ try {
     // Datos para la inserción 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {        
         // Recuperar datos del formulario
-        $nombre = $_POST["nomape"];
+        $nombre = $_POST["nombre"];
+        $apellido = $_POST["apellido"];
         $alias = $_POST["alias"];
         $rut = $_POST["rut"];
         $email = $_POST["email"];
@@ -51,17 +52,19 @@ try {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result['total'] > 0) {
-        echo "Error: El RUT ya existe en la base de datos. No puede votar nuevamente.";
+        echo "Error: El RUT ya existe en la base de datos. No puede votar nuevamente. </br></br></br>  
+        <a href='index.html'><button type='button'>VOLVER</button></a>";
     } else {
-            // SQL para la registrar los datos en la tabla votos.
-            $sql = "INSERT INTO voto (nombre,alias,rut,email,id_region,id_comuna,id_candidato,web,tv,redes_sociales,amigo) VALUES 
-            (:nombre, :alias, :rut, :email, :region, :comuna, :candidato, :web, :tv, :redes_sociales, :amigo)";
+            // SQL para poder registrar los datos en la tabla votos.
+            $sql = "INSERT INTO voto (nombre, apellido, alias,rut,email,id_region,id_comuna,id_candidato,web,tv,redes_sociales,amigo) VALUES 
+            (:nombre, :appelido, :alias, :rut, :email, :region, :comuna, :candidato, :web, :tv, :redes_sociales, :amigo)";
 
             // Preparar la consulta
             $stmt = $conn->prepare($sql);
 
             // Vincular parámetros
             $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':appelido', $apellido);
             $stmt->bindParam(':alias', $alias);
             $stmt->bindParam(':rut', $rut);
             $stmt->bindParam(':email', $email);
@@ -76,10 +79,12 @@ try {
             // Ejecutar la consulta
             $stmt->execute();
 
-            echo "<h3>Voto registrado exitosamente.</h3>";
+            echo "<h3>Voto registrado exitosamente.</h3> </br></br></br>
+            <a href='index.html'><button type='button'>VOLVER</button></a>";
     }
 } catch(PDOException $e) {
     echo "Error al insertar el voto, favor contactarse con soporte TI: " . $e->getMessage();
+    echo "<a href='index.html'><button type='button'>VOLVER</button></a>";
 }
 
 // Cerrar la conexión

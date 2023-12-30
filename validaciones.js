@@ -23,11 +23,30 @@ function validaRut(rut) {
 }
 
 function validaEmail(email) {
-// Expresión regular para validar el formato del correo electrónico
-var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Expresión regular para validar el formato del correo electrónico
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Verifica si el correo electrónico cumple con el formato esperado
-return emailRegex.test(email);
+    // Verifica si el correo electrónico cumple con el formato esperado
+    return emailRegex.test(email);
+}
+
+function validaContactos(checkboxes) {
+    // Contador para rastrear la cantidad de checkboxes seleccionados
+    var checkboxesSeleccionados = 0;
+
+    // Iterar sobre cada checkbox
+    checkboxes.forEach(function (checkbox) {
+        if (checkbox.checked) {
+            checkboxesSeleccionados++;
+        }
+    });
+
+    // Verificar si al menos dos checkboxes están seleccionados
+    if (checkboxesSeleccionados <= 1) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 

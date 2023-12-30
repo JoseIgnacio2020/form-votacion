@@ -101,8 +101,8 @@
                 return this.optional(element) || validaEmail(value);
             }, "Por favor ingrese un correo electrónico válido.");
 
-            $.validator.addMethod("ValidaCheckboxes ", function(value, element) {
-                return $('input[type="checkbox"]:checked').length >= 2;
+            $.validator.addMethod("validaContactos ", function(value, element) {
+                return this.optional(element) || validaContactos(value);
             }, "Por favor seleccione al menos dos opciones.");
 
             // Realiza la validación al presionar el botón de submit.
@@ -127,7 +127,7 @@
                         maxlength: 50,
                         validaRut: true
                     },
-                    email: {
+                    emali: {
                         required: true,
                         maxlength: 50,
                         validaEmail: true
@@ -136,11 +136,10 @@
                     comuna: "required",
                     comuna: "required",
                     candidato: "required",
-                    web: "ValidaCheckboxes",
-                    tv: "ValidaCheckboxes",
-                    redes_sociales: "ValidaCheckboxes",
-                    amigo: "ValidaCheckboxes",
-                    como_se_entero: "required"
+                    como_se_entero: {
+                        required: true,
+                        validaContactos: true
+                    },
                 },
                 messages: {
                     nombre: {
@@ -168,11 +167,10 @@
                     region: "<div class='text-error'>Por favor seleccione una región.</div>",
                     comuna: "<div class='text-error'>Por favor seleccione una comuna.</div>",
                     candidato: "<div class='text-error'>Por favor seleccione un candidato.</div>",
-                    web: "Selecciona al menos dos opciones.",
-                    tv: "Selecciona al menos dos opciones.",
-                    redes_sociales: "Selecciona al menos dos opciones.",
-                    amigo: "Selecciona al menos dos opciones.",
-                    como_se_entero: "<div class='text-error'>Por favor seleccione cómo nos conocio.</div>"
+                    como_se_entero: {
+                        required: "<div class='text-error'>Por favor seleccione cómo nos conocio.</div>",
+                        validaContactos: "<div class='text-error'>Debe seleccionar al menos dos opciones.</div>"
+                    }
                 }
             });
 
