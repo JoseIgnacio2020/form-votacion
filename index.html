@@ -58,31 +58,37 @@
         </select>
         <br>
 
-        <div>
-            <p><strong>¿Cómo se enteró de nosotros? (requerido)</strong></p>
+        <div class="checkbox-group">
+            <p><strong>¿Cómo se enteró de nosotros?</strong></p>
             <div>
-                <input type="checkbox" id="web" name="como_se_entero[]" value="web">
+                <input type="checkbox" id="web" name="como_se_entero[]" value="web" onblur="validaContactos()">
                 <label for="web">Web</label>
             </div>
 
             <div>
-                <input type="checkbox" id="tv" name="como_se_entero[]" value="tv">
+                <input type="checkbox" id="tv" name="como_se_entero[]" value="tv" onblur="validaContactos()">
                 <label for="tv">TV</label>
             </div>
 
             <div>
-                <input type="checkbox" id="redes_sociales" name="como_se_entero[]" value="redes_sociales">
+                <input type="checkbox" id="redes_sociales" name="como_se_entero[]" value="redes_sociales"
+                    onblur="validaContactos()">
                 <label for="redes_sociales">Redes Sociales</label>
             </div>
 
             <div>
-                <input type="checkbox" id="amigo" name="como_se_entero[]" value="amigo">
+                <input type="checkbox" id="amigo" name="como_se_entero[]" value="amigo" onblur="validaContactos()">
                 <label for="amigo">Amigo</label>
             </div>
         </div>
         <br>
+        <div id="mensajeContactos" style="display: none;">
+            <div class="text-error">Por favor seleccione al menos dos tipos de contactos.</div>
+        </div>
 
-        <input type="submit" value="Votar" id="btnVotar">
+        <br>
+
+        <input type="submit" value="Votar" id="btnVotar"  onclick="validaContactos()">
     </form>
 
     <script>
@@ -100,10 +106,6 @@
             $.validator.addMethod("validaEmail", function (value, element) {
                 return this.optional(element) || validaEmail(value);
             }, "Por favor ingrese un correo electrónico válido.");
-
-            $.validator.addMethod("validaContactos ", function(value, element) {
-                return this.optional(element) || validaContactos(value);
-            }, "Por favor seleccione al menos dos opciones.");
 
             // Realiza la validación al presionar el botón de submit.
             $("#formularioVoto").validate({
@@ -127,7 +129,7 @@
                         maxlength: 50,
                         validaRut: true
                     },
-                    emali: {
+                    email: {
                         required: true,
                         maxlength: 50,
                         validaEmail: true
@@ -135,18 +137,14 @@
                     region: "required",
                     comuna: "required",
                     comuna: "required",
-                    candidato: "required",
-                    como_se_entero: {
-                        required: true,
-                        validaContactos: true
-                    },
+                    candidato: "required"
                 },
                 messages: {
                     nombre: {
                         required: "<div class='text-error'>Por favor ingrese su nombre.</div>",
                         maxlength: "<div class='text-error'>El máximo de caracteres es de 50.</div>"
                     },
-                    nombre: {
+                    apellido: {
                         required: "<div class='text-error'>Por favor ingrese su apellido.</div>",
                         maxlength: "<div class='text-error'>El máximo de caracteres es de 50.</div>"
                     },
@@ -166,11 +164,7 @@
                     },
                     region: "<div class='text-error'>Por favor seleccione una región.</div>",
                     comuna: "<div class='text-error'>Por favor seleccione una comuna.</div>",
-                    candidato: "<div class='text-error'>Por favor seleccione un candidato.</div>",
-                    como_se_entero: {
-                        required: "<div class='text-error'>Por favor seleccione cómo nos conocio.</div>",
-                        validaContactos: "<div class='text-error'>Debe seleccionar al menos dos opciones.</div>"
-                    }
+                    candidato: "<div class='text-error'>Por favor seleccione un candidato.</div>"
                 }
             });
 
